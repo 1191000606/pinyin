@@ -2,3 +2,4 @@ data/*
 !./data/test.json
 .idea
 tokenize_saved/*
+test.py

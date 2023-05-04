@@ -6,6 +6,13 @@
 词表中不存在中文汉字。
 
 首先将输入的文本使用pypinyin包进行预处理，其中汉字被转换为对应汉语拼音，非汉字首先进行切分然后转化为词表中的子词。
+```
+>>> from pypinyin import Style, pinyin
+# 如下图所示，此时非pinyin部分并未切分
+>>> pinyin("对于这个APP，John的想法是首先有个idea，然后再与S-team（包括Jeff和Dean）讨论", style=Style.TONE3, errors=lambda x: str(x))
+[['dui4'], ['yu2'], ['zhe4'], ['ge4'], ['APP，John'], ['de'], ['xiang3'], ['fa3'], ['shi4'], ['shou3'], ['xian1'], ['you3'], ['ge4'], ['idea，'], ['ran2'], ['hou4'],
+ ['zai4'], ['yu3'], ['S-team（'], ['bao1'], ['kuo4'], ['Jeff'], ['he2'], ['Dean）'], ['tao3'], ['lun4']]
+```
 预训练模型以汉语拼音和非汉字单词构成的token作为输入，输出同样为汉语拼音和非汉字单词。然后会调用汉语输入法将之转换为汉语文本。
 
 所以需要实现的部分有：
