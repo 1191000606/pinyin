@@ -26,7 +26,7 @@
    - 使用transformers库中pre-tokenization函数将非汉字字符串进行切分，切割符包括空格、标点符号。其中标点符号在切分结果中，空格不在
    - 对切分后的非汉字单词进行BPE算法构建非汉字词表。切分后的非汉字单词一共有2300w个，一共出现了98亿次，考虑到前10w个单词的出现次数占比达到98.3293%，因此只选取出现次数最高的前10w个单词。
    - 将所有合法的拼音加入到BPE构成的词表中
-目前问题，构成的词表中，许多子词是纯数字，根据《Do NLP Models Know Numbers? Probing Numeracy in Embeddings》,数字采用Character-level比sub word-level更加精确，下一步即使对应的调整。但是对于非纯数字的情况（50Hz）和是否加‘</w>’）还要观察其他LM的情况。
+目前问题，构成的词表中，许多子词是纯数字，根据《Do NLP Models Know Numbers? Probing Numeracy in Embeddings》,数字采用Character-level比sub word-level更加精确，下一步即使对应的调整。但是对于非纯数字的情况（50Hz）和数字后面是否加‘<//w>’还要观察其他LM的情况。
 
 # 项目思路讨论
 1. 词表中拼音和非拼音部分为什么要分开？
@@ -41,4 +41,4 @@
 
 3. 非汉语文本BPE算法执行的过程中选取前10w个单词是否合理？
 
-观察使用全部单词和10w单词初始化的词表，主要的差距在于许多小众的unicode符号。观察Bert, GPT2等模型，其中小众unicode字符较少
+观察使用全部单词和10w单词初始化的词表，主要的差距在于许多小众的unicode符号。观察Bert, GPT2等模型的词表，其中小众unicode字符较少
